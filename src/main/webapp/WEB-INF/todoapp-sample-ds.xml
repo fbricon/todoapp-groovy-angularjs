@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is an unmanaged datasource. It should be used for proofs of concept 
+   or testing only. It uses H2, an in memory database that ships with JBoss 
+   AS / WildFly. -->
+<datasources>
+   <!-- The datasource is bound into JNDI at this location. We reference 
+      this in META-INF/persistence.xml -->
+   <datasource jndi-name="jdbc/todoapp-sample"
+      pool-name="sample-pool" enabled="true"
+      use-java-context="true">
+      <connection-url>jdbc:h2:mem:sample;DB_CLOSE_DELAY=-1</connection-url>
+      <driver>h2</driver>
+      <security>
+         <user-name>sa</user-name>
+         <password>sa</password>
+      </security>
+   </datasource>
+</datasources>
+ 
