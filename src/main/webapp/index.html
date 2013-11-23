@@ -1,47 +1,70 @@
 <!DOCTYPE html>
 <html ng-app>
-  <head>
-    <title>Todo app</title>
-    <script type="text/javascript" src="js/angular.min.js"></script>
-    <script type="text/javascript" src="js/underscore.js"></script>
-    <script type="text/javascript" src="js/controllers.js"></script>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-    <style type="text/css">
-      .done-true {
-        text-decoration: line-through;        
-      }
-    </style>
-  </head>
+<head>
+<title>Todo app</title>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/underscore.js"></script>
+<script type="text/javascript" src="js/controllers.js"></script>
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+<style type="text/css">
+body {
+  font-size: 16px;
+}
 
-  <body>
-    <div class="container" ng-controller="TodoController">
-      <h1>Todo list</h1>
-      <div class="alert alert-info">
-        Completed: {{ remaining() }} / {{ total() }}
-      </div>
-      <form>
-        <ul class="unstyled">
-          <li ng-repeat="todo in todos">
-            <label class="checkbox">
-              <input type="checkbox" ng-model="todo.done" ng-change="mark(todo)"/>
-              <span class="done-{{ todo.done }}">{{ todo.text }}</span>
-            </label>                  
-          </li>
-        </ul>
-      </form>
-      <form ng-submit="add()">
-        <div class="input-append">
-          <input type="text" ng-model="text"/>
-          <button class="btn btn-primary" type="submit">
-            <i class="icon-plus icon-white"></i> Add
-          </button>          
-        </div>
-      </form>
-      <div>        
-        <button class="btn" type="button" ng-click="cleanup()">
-          <i class="icon-trash"></i> Remove the completed items
-        </button>
-      </div>
-    </div>
-  </body>    
+.done-true {
+	text-decoration: line-through;
+}
+.clickable:hover {
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+    <a href="https://github.com/fbricon/todoapp-groovy-angularjs"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+	<div class="container" ng-controller="TodoController">
+		<h1>Todo list</h1>
+		<div class="alert alert-info">Completed: {{ remaining() }} / {{ total() }}
+	    </div>
+		<div class="row">
+			<div class="form-group col-md-4">
+					<div class="">
+						<input type="text" class="form-control" ng-model="todoFilter.text" placeholder="Filter todos"> 
+					</div>
+			</div>
+		</div>
+	    
+		<form>
+			<ul class="list-group">
+				<li ng-repeat="todo in todos|filter:todoFilter:'true'" class="list-group-item">
+				    <label class="checkbox clickable">
+						<input type="checkbox" ng-model="todo.done" ng-change="mark(todo)" />
+						<span class="done-{{ todo.done }}">{{ todo.text }}</span>
+				    </label>
+				</li>
+			</ul>
+		</form>
+		<div class="row">
+			<div class="form-group col-md-4">
+				<form ng-submit="add()">
+					<div class="input-group">
+						<input type="text" class="form-control" ng-model="text"> <span
+							class="input-group-btn">
+							<button class="btn btn-primary" type="button">
+								<i class="glyphicon glyphicon-plus"></i> Add
+							</button>
+						</span>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-4">
+				<button class="btn btn-default" type="button" ng-click="cleanup()">
+					<i class="glyphicon glyphicon-trash"></i> Remove the completed items
+				</button>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
